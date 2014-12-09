@@ -1,0 +1,43 @@
+﻿@model BlogRoll.Models.Movie
+
+
+<div class="container">
+    <h2>@ViewBag.PageTitle</h2>
+    <div class="lead">
+        @Html.DisplayNameFor(model => model.MovieName)
+    </div>
+
+    <table class="table table-condensed table-striped">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Actor.ActorName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Actor.ScreenName)
+            </th>
+            <th></th>
+        </tr>
+
+
+        @if (Model != null)
+        {
+            foreach (var item in Model.Actors)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ActorName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ScreenName)
+                    </td>
+                    <td>
+
+                        @Html.ActionLink("Edit", "EditActor", new { id = item.ActorID }, new { @class = "btn btn-primary btn-xs" })
+                        @Html.ActionLink("Delete", "DeleteActor", new { id = item.ActorID }, new { @class = "btn btn-danger btn-xs" })
+                    </td>
+                </tr>
+            }
+        }   @* closing of if *@
+    </table>
+    @Html.ActionLink("Back to List", "Index", null, new { @class = "btn btn-primary" })
+</div>

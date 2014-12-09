@@ -1,0 +1,42 @@
+﻿@model BlogRoll.Models.Movie
+
+<div class="panel panel-info">
+    <div class="panel-heading">Details of Movie</div>
+    <div class="panel-body">
+      <div class="row">
+          <div class="col-xs-6">
+              @Html.DisplayNameFor(model => model.Actor.ActorName)
+          </div>
+          <div class="col-xs-6">
+                  @Html.DisplayFor(model => model.Actor.ActorName)
+              </div>
+              <div class="col-xs-6">
+                  @Html.DisplayFor(model => model.Actor.ScreenName)
+              </div>
+
+
+          </div> 
+
+
+</div>
+<fieldset>
+    <legend>Movie</legend>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.Actor.ActorName)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.Actor.ScreenName)
+    </div>
+
+    <div class="display-label">
+         @Html.DisplayNameFor(model => model.MovieDirector)
+    </div>
+    <div class="display-field">
+        @Html.DisplayFor(model => model.MovieDirector)
+    </div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id=Model.MovieID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -1,0 +1,62 @@
+﻿@model BlogRoll.Models.Movie
+
+<script src="~/Scripts/jquery-1.8.2.min.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
+
+@using (Html.BeginForm()) {
+    @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
+
+    
+    <div class="panel panel-primary">
+        <div class="panel-heading">@ViewBag.PageTitle</div>
+        <div class="panel-body" >
+            <br />
+            <fieldset>
+                <legend>Add Movie</legend>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.MovieName)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.MovieName)
+                    @Html.ValidationMessageFor(model => model.MovieName)
+                </div>
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.MovieDirector)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.MovieDirector)
+                    @Html.ValidationMessageFor(model => model.MovieDirector)
+                </div>
+
+                @*<div class="editor-label">
+                @Html.LabelFor(model => model.MovieImage)
+            </div>
+            <div class="editor-field">
+                @Html.EditorFor(model => model.MovieImage)
+                @Html.ValidationMessageFor(model => model.MovieImage)
+            </div>*@
+
+                <div class="editor-label">
+                    @Html.LabelFor(model => model.ReleaseDate)
+                </div>
+                <div class="editor-field">
+                    @Html.EditorFor(model => model.ReleaseDate)
+                    @Html.ValidationMessageFor(model => model.ReleaseDate)
+                </div>
+
+                <p>
+                    <input type="submit" value="Create" class="btn btn-default" />
+                </p>
+            </fieldset>
+        </div>
+        </div>
+
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index", new {@class = "btn btn-success"})
+</div>

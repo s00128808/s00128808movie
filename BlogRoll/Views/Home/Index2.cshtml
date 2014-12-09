@@ -1,0 +1,45 @@
+﻿@model IEnumerable<BlogRoll.Models.Movie>
+
+<div class="container">
+
+    <!-- Main component for a primary marketing message or call to action -->
+    <div class="jumbotron" style="margin-top: 70px">
+        <h1>List of Movies</h1>
+        <table class="table">
+            <tr>
+                <th>
+                    @Html.DisplayNameFor(model => model.MovieName)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.BlogAuthor)
+                </th>
+                <th></th>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BlogName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.BlogAuthor)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.BlogID }) |
+                        @Html.ActionLink("Details", "Details", new { id = item.BlogID }) |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.BlogID })
+                    </td>
+                </tr>
+            }
+
+        </table>
+    </div>
+
+</div> <!-- /container -->
+
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+

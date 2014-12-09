@@ -1,0 +1,196 @@
+﻿@model IEnumerable<BlogRoll.Models.Movie>
+
+<div class="container">
+
+
+    <h2>@ViewBag.PageTitle</h2>
+    <script src="~/Scripts/jquery-1.9.1.min.js"></script>
+    <script src="~/Scripts/jquery-ui-1.11.2.min.js"></script>
+    <script type="text/javascript" src="Scripts/bootstrap.min.js"></script>
+    <p>
+        @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-success btn-default" })
+    </p>
+
+    @*<a class="btn btn-xs btn-info" href="@Url.Action("Index",new{sortOrder=@ViewBag.dateOrder})">
+        @if (ViewBag.dateOrder == "ascDate")
+        {
+            <span class="glyphicon glyphicon-arrow-down" aria-hidden="true"></span>
+        }
+        else if (ViewBag.dateOrder == "descDate")
+        {
+            <span class="glyphicon glyphicon-arrow-up" aria-hidden="true"></span>
+
+        }
+        &nbsp;StartDate
+    </a>*@
+
+
+    
+
+    <div class="dropdown">
+
+        <button class="btn btn-default dropdown" data-toggle="dropdown" href="#">Sort By<b class="caret"></b></button>
+
+        <ul class="dropdown-menu">
+            <li>
+                <a href="@Url.Action("Index", new { sortOrder = @ViewBag.dateOrder })">Date Released</a>
+            </li>
+            <li>
+                <a href="@Url.Action("Index", new { sortOrder = @ViewBag.numberOrder })"> Number of Actors</a>
+            </li>
+        </ul>
+    </div>
+    <br />
+
+    <div class="panel panel-primary">
+        <div class="panel-heading">@ViewBag.PageTitle</div>
+        <div class="panel-body">
+            @foreach (var item in Model)
+            {
+
+                <div class="col-sm-7 col-md-3">
+                    <div class="thumbnail">
+                        <img src="/@Html.DisplayFor(modelItem => item.MovieImage)" />
+                        <br />
+                        <table>
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.MovieName)
+                                    <span class="movieName"> @Html.DisplayFor(modelItem => item.MovieName) </span>
+                                </th>
+
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.Actors)
+                                   @Html.DisplayFor(modelItem => item.Actors.Count)
+                                </th>
+
+<tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.MovieDirector)
+                                    <span class="movieDescription">  @Html.DisplayFor(modelItem => item.MovieDirector) </span>
+                                </th>
+
+                            <tr>
+                                <th>
+                                    @Html.DisplayNameFor(model => model.ReleaseDate)
+                                    @Html.DisplayFor(modelItem => item.ReleaseDate)
+                                </th>
+                                <th>
+</table>
+                        <br />
+                       @* btn btn-default btn-xs *@
+                        @*<button type="button" class="btn btn-default btn-xs" data-toggle=" modal" data-target="#myModal" />*@
+                            @*@Html.ActionLink("Edit", "Edit", new { id = item.MovieID }, new { @class = "btn btn-default btn-xs", data_toggle = "modal", data_target = "#myModal" })*@
+                                 @*<a onclick="showModal(@item.MovieID)">Edit</a>*@
+                        @Html.ActionLink("Edit", "Edit", new { id = item.MovieID }, new { @class = "btn btn-default btn-xs"})
+                            @Html.ActionLink("Details", "Details", new { id = item.MovieID }, new { @class = "btn btn-primary btn-xs" })
+                            @Html.ActionLink("Delete", "Delete", new { id = item.MovieID }, new { @class = "btn btn-danger btn-xs" })
+</div>
+                </div>
+            }
+
+        </div>
+    </div>
+
+    <div id="dialog">
+        
+    </div>
+@*@section scripts
+    {    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#dialog").dialog({
+                bgiframe: true, autoOpen: false, height: 100, modal: true
+            });
+            $('.btn btn-default btn-xs').click(function () {
+                $.get("/Home/Edit/" + id, function (data) {
+                    $("#dialog").html(data);
+                });
+                $('#dialog').dialog('open'); return false;
+            });
+        });
+    </script>
+
+    }*@
+
+
+
+    @*<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
+
+
+    @*<div id="updateDialog" title="Edit Movie"></div>
+    <script type="text/javascript" >
+        var linkObj;
+        $(function () {
+            $(".btn btn-default btn-xs").button();
+
+            $('#updateDialog').dialog({
+
+                autoOpen: false,
+                width: 400,
+                resizeable: false,
+                modal: true,
+                buttons: {
+                    "Edit": function () {
+                        $('update-message').html('');
+                        $('updateMoiveForm').submit();
+
+                    },
+                    "Cancel": function () {
+                        $(this).dialog("close");
+                    }
+                }
+            });
+
+            $(".btn btn-default btn-xs").click(function () {
+
+                
+                    $('#updateDialog').dialog('open');
+                });
+                //linkObj = $(this);
+                //var dialogDiv = $('#updateDialog');
+                //var viewUrl = linkObj.attr('href');
+                //$.get(viewUrl, function (data) {
+                //    dialogDiv.html(data);
+
+                //    var $form = $('updateMovieForm');
+
+                //    $form.unbind();
+                //    $form.data("validator", null);
+
+                //    $.validator.unobtrusive.parse(document);
+
+                //    $form.validate($form.data("unobstructiveValidation").options);
+
+                //    dialogDiv.dialog('open');
+
+            //    });
+            //    return false
+            //});
+
+        });
+            
+        
+        
+    </script>*@
+</div>
+
+
+@*</div>*@ <!-- /container -->
